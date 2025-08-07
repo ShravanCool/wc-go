@@ -9,6 +9,6 @@ func PrintToStderr(err error) {
 	fmt.Fprint(os.Stderr, err.Error())
 }
 
-func PrintToStdout(s string) {
+func printToStdout(s string) {
 	fmt.Fprint(os.Stdout, s)
 }

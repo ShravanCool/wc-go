@@ -15,11 +15,7 @@ var rootCmd = &cobra.Command{
 	Short: "wc is a command-line tool to count words, lines and characters",
 	Long:  `wc is a command-line tool that reads from the standard input or from a file (or multiple files) to count words, lines and characters`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			args = []string{"-"}
-		}
-
-		src.Worker(args[0], flagSet)
+		src.Command(flagSet, args)
 	},
 }
 

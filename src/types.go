@@ -16,6 +16,12 @@ type FlagOptions struct {
 	CharFlag bool
 }
 
+type totalCounter struct {
+	lineCount int
+	wordCount int
+	charCount int
+}
+
 func (res result) generateOutput(flagSet FlagOptions) (string, error) {
 	var output string
 
