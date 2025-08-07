@@ -1,6 +1,6 @@
 package src
 
-func Worker(filePath string) {
+func Worker(filePath string, flagSet FlagOptions) {
 	lines := make(chan string)
 	errChan := make(chan error)
 
@@ -9,11 +9,11 @@ func Worker(filePath string) {
 	result := count(lines, errChan)
 	result.fileName = filePath
 
-	output, err := result.generateOutput()
+	output, err := result.generateOutput(flagSet)
 	if err != nil {
-		printToStderr(err)
+		PrintToStderr(err)
 	}
 
-	printToStdout(output)
+	PrintToStdout(output)
 
 }

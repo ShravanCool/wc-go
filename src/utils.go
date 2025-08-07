@@ -5,10 +5,10 @@ import (
 	"os"
 )
 
-func printToStderr(err error) {
+func PrintToStderr(err error) {
 	fmt.Fprint(os.Stderr, err.Error())
 }
 
-func printToStdout(s string) {
+func PrintToStdout(s string) {
 	fmt.Fprint(os.Stdout, s)
 }
