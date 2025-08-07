@@ -32,19 +32,25 @@ func validateFile(filePath string) error {
 }
 
 func readFile(filePath string, lines chan<- string, errChan chan<- error) {
+	var scanner *bufio.Scanner
+
 	const chunkSize = 1024 * 1024
 	defer close(lines)
 	defer close(errChan)
 
-	err := validateFile(filePath)
-	if err != nil {
-		errChan <- err
+	if filePath == "-" {
+		scanner = bufio.NewScanner(os.Stdin)
+	} else {
+		err := validateFile(filePath)
+		if err != nil {
+			errChan <- err
+		}
+
+		file, _ := os.Open(filePath)
+		defer file.Close()
+
+		scanner = bufio.NewScanner(file)
 	}
-
-	file, _ := os.Open(filePath)
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
 	scanner.Buffer(make([]byte, chunkSize), chunkSize)
 
 	for scanner.Scan() {

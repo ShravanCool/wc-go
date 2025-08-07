@@ -21,5 +21,11 @@ func (res result) generateOutput() (string, error) {
 	output += fmt.Sprintf("%8d", res.wordCount)
 	output += fmt.Sprintf("%8d", res.charCount)
 
+	if res.fileName == "-" {
+		output += "\n"
+	} else {
+		output += fmt.Sprintf(" " + res.fileName + "\n")
+	}
+
 	return output, nil
 }
