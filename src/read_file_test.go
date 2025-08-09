@@ -39,8 +39,9 @@ func TestValidateFile(t *testing.T) {
 		defer os.RemoveAll("testDir")
 
 		err := validateFile("testDir")
-		if err == nil || err.Error() != "Is a directory" {
-			t.Errorf("Expected 'Is a directory' error, got %v", err)
+		errorText := "testDir is a directory\n"
+		if err == nil || err.Error() != errorText {
+			t.Errorf("Expected 'is a directory' error, got %v", err)
 		}
 	})
 
@@ -55,7 +56,7 @@ func TestValidateFile(t *testing.T) {
 		defer os.Chmod(tmpFile.Name(), 0644)
 
 		err := validateFile(tmpFile.Name())
-		errorText := fmt.Sprintf("File is protected or not accessible: open %s: permission denied", tmpFile.Name())
+		errorText := fmt.Sprintf("File is protected or not accessible: open %s: permission denied\n", tmpFile.Name())
 
 		if err == nil || err.Error() != errorText {
 			t.Errorf("Expected 'Permission denied' error, got %v", err)

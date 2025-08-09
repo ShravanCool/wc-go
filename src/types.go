@@ -50,7 +50,7 @@ func (res result) generateOutput(flagSet FlagOptions) (string, error) {
 	if res.fileName == "-" {
 		output += "-\n"
 	} else {
-		output += fmt.Sprintf(" " + res.fileName + "\n")
+		output += fmt.Sprintf(" %s\n", res.fileName)
 	}
 
 	return output, nil

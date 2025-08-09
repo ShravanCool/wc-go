@@ -11,7 +11,7 @@ func validateFile(filePath string) error {
 	file, err := os.Open(filePath)
 	if err != nil {
 		if os.IsPermission(err) {
-			return fmt.Errorf("File is protected or not accessible: %w", err)
+			return fmt.Errorf("File is protected or not accessible: %w\n", err)
 		}
 
 		return fmt.Errorf("%w", err)
@@ -20,12 +20,12 @@ func validateFile(filePath string) error {
 
 	info, err := file.Stat()
 	if err != nil {
-		return fmt.Errorf("Could not stat file: %w", err)
+		return fmt.Errorf("Could not stat file %s: %w\n", filePath, err)
 	}
 
 	mode := info.Mode()
 	if mode.IsDir() {
-		return fmt.Errorf("Is a directory")
+		return fmt.Errorf("%s is a directory\n", filePath)
 	}
 
 	return nil
@@ -59,9 +59,7 @@ func readFile(filePath string, lines chan<- string, errChan chan<- error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		err = fmt.Errorf(
-			"wc-go: " + strings.Replace(err.Error(), "read ", "", 1) + "\n",
-		)
+		err = fmt.Errorf("%s", "wc-go: "+strings.Replace(err.Error(), "read ", "", 1)+"\n")
 		errChan <- err
 	}
 }
